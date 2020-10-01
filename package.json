@@ -3,6 +3,10 @@
   "scripts": {
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balazsherczeg/react-native-star-rating.git"
+  },
   "name": "react-native-session-stats",
   "version": "1.0.0",
   "devDependencies": {
