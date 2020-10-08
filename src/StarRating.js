@@ -1,11 +1,10 @@
 import React, {useState, useCallback} from 'react';
-import {func, node, number, string} from 'prop-types';
+import {bool, func, node, number} from 'prop-types';
 import {StyleSheet, View} from 'react-native';
 import {Svg} from 'react-native-svg';
 import MeasureAndRender from './MeasureAndRender';
 
 import Stars from './Stars';
-import defaultIcon from './defaultIcon';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,32 +22,60 @@ const getSvgWidth = ({
   padding,
 }) => maxRating * size + (maxRating - 1) * gap + 2 * padding;
 
-const StarRating = (props) => {
-  const {defaultRating, size, onRate, padding, svg} = props;
-  const [rating, setRating] = useState(defaultRating);
+const getSvgHeight = ({
+  size,
+  padding,
+}) => size + (2 * padding);
 
-  const handleRate = useCallback(
+const getRatingControlled = ({rating, onRate}) => ({
+  rating,
+  handleRate: useCallback(
     (nextRating) => {
-      setRating(nextRating);
       onRate(nextRating);
     },
     [onRate],
-  );
+  ),
+});
+
+const getRatingUncontrolled = ({defaultRating, onRate}) => {
+  const [rating, setRating] = useState(defaultRating);
+
+  return {
+    rating,
+    handleRate: useCallback(
+      (nextRating) => {
+        setRating(nextRating);
+        onRate(nextRating);
+      },
+      [onRate],
+    ),
+  };
+};
+
+const getRating = (props) => {
+  const {rating} = props;
+  return (rating) // If there is a rating props...
+    ? getRatingControlled(props) // ...then it is a controlled component,
+    : getRatingUncontrolled(props); // ...otherwise uncontrolled.
+};
+
+const StarRating = (props) => {
+  const {shape} = props;
+  const {rating, handleRate} = getRating(props);
 
   return (
     <View style={styles.container}>
       <Svg
         width={getSvgWidth(props)}
-        height={size + (2 * padding)}
+        height={getSvgHeight(props)}
       >
         <MeasureAndRender
-          svg={svg}
+          shape={shape}
         >
           <Stars
             {...props}
-            rating={rating}
             onRate={handleRate}
-            dimensions={{width: 20, height: 20, x: 2, y: 2}}
+            rating={rating}
           />
         </MeasureAndRender>
       </Svg>
@@ -57,28 +84,14 @@ const StarRating = (props) => {
 };
 
 StarRating.propTypes = {
-  baseColor: string, // TODO
-  defaultRating: number,
-  gap: number,
-  maxRating: number,
+  defaultRating: number.isRequired,
+  gap: number.isRequired,
+  maxRating: number.isRequired,
   onRate: func.isRequired,
-  selectedColor: string, // TODO
-  size: number,
-  svg: node,
-  iconScale: number,
-  padding: number,
-};
-
-StarRating.defaultProps = {
-  baseColor: '#0ff',
-  defaultRating: 3,
-  gap: 0,
-  maxRating: 5,
-  selectedColor: '#ff0',
-  size: 48,
-  svg: defaultIcon,
-  iconScale: 1,
-  padding: 24,
+  padding: number.isRequired,
+  readOnly: bool.isRequired,
+  shape: node.isRequired,
+  size: number.isRequired,
 };
 
 export default StarRating;

@@ -1,12 +1,12 @@
 import React, {useRef, useEffect} from 'react';
-import {func, node, number, shape} from 'prop-types';
+import {func, node} from 'prop-types';
 
 import {dimensionsPropType} from './propTypes';
 
 const Measurer = ({
   dimensions,
   onMeasure,
-  svg,
+  shape,
 }) => {
   const iconRef = useRef(null);
 
@@ -17,13 +17,13 @@ const Measurer = ({
     }
   });
 
-  return React.cloneElement(svg, {ref: iconRef});
+  return React.cloneElement(shape, {ref: iconRef});
 };
 
 Measurer.propTypes = {
   dimensions: dimensionsPropType.isRequired,
   onMeasure: func.isRequired,
-  svg: node.isRequired,
+  shape: node.isRequired,
 };
 
 export default Measurer;

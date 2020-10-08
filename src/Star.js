@@ -1,33 +1,27 @@
-import React, {memo, useCallback, useState, useEffect} from 'react';
-import {func, object, node, number, string} from 'prop-types';
-import {G, Rect} from 'react-native-svg';
+import React, {memo, useState, useEffect} from 'react';
+import {bool, func, node, number, string} from 'prop-types';
+import {G} from 'react-native-svg';
 
 import {dimensionsPropType} from './propTypes';
 import Animatable from './Animatable';
+import Button from './Button';
 
 const Star = ({
   baseColor,
   dimensions,
-  iconScale,
+  scale,
   id,
   onRate,
   rating,
+  readOnly,
   selectedColor,
   size,
-  svg,
+  shape,
 }) => {
   const [animation, setAnimation] = useState(false);
 
   const startAnimation = () => setAnimation(true);
   const endAnimation = () => setAnimation(false);
-
-  const handleRate = useCallback(
-    () => {
-      onRate(id);
-      startAnimation();
-    },
-    [id],
-  );
 
   // We triggered animation in animatable,
   // the next moment we can turn it off again.
@@ -45,25 +39,23 @@ const Star = ({
         size={size}
       >
         <G
-          x={(size - width * iconScale) / 2 - x * iconScale}
-          y={(size - height * iconScale) / 2 - y * iconScale}
-          scale={iconScale}
+          x={(size - width * scale) / 2 - x * scale}
+          y={(size - height * scale) / 2 - y * scale}
+          scale={scale}
         >
-          {React.cloneElement(svg, {
+          {React.cloneElement(shape, {
             fill: (id > rating ? baseColor : selectedColor),
             accessibilityRole: 'icon',
           })}
         </G>
       </Animatable>
 
-      <Rect
-        x="0"
-        y="0"
-        width={size}
-        height={size}
-        fill="none"
-        onPress={handleRate}
-        accessibilityRole="button"
+      <Button
+        id={id}
+        onRate={onRate}
+        readOnly={readOnly}
+        size={size}
+        startAnimation={startAnimation}
       />
     </G>
   );
@@ -72,13 +64,14 @@ const Star = ({
 Star.propTypes = {
   baseColor: string.isRequired,
   dimensions: dimensionsPropType.isRequired,
-  iconScale: number.isRequired,
+  scale: number.isRequired,
   id: number.isRequired,
   onRate: func.isRequired,
   rating: number.isRequired,
+  readOnly: bool.isRequired,
   selectedColor: string.isRequired,
   size: number.isRequired,
-  svg: node.isRequired,
+  shape: node.isRequired,
 };
 
 const shouldStarUpdate = (prevProps, nextProps) => {

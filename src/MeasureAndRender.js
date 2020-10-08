@@ -5,7 +5,7 @@ import Measurer from './Measurer';
 
 const MeasureAndRender = ({
   children,
-  svg,
+  shape,
 }) => {
   const [dimensions, setDimenions] = useState({});
 
@@ -15,7 +15,7 @@ const MeasureAndRender = ({
 
   return (
     <Measurer
-      svg={svg}
+      shape={shape}
       onMeasure={setDimenions}
       dimensions={dimensions}
     />
@@ -24,7 +24,7 @@ const MeasureAndRender = ({
 
 MeasureAndRender.propTypes = {
   children: node.isRequired,
-  svg: node.isRequired,
+  shape: node.isRequired,
 };
 
 export default MeasureAndRender;
