@@ -19,7 +19,7 @@ const Stars = (props) => {
           {...props}
           id={i + 1}
         />
-      </G>
+      </G>,
     );
   }
 
@@ -27,10 +27,10 @@ const Stars = (props) => {
 };
 
 Stars.propTypes = {
-  gap: number,
-  maxRating: number,
-  padding: number,
-  size: number,
+  gap: number.isRequired,
+  maxRating: number.isRequired,
+  padding: number.isRequired,
+  size: number.isRequired,
 };
 
 export default Stars;

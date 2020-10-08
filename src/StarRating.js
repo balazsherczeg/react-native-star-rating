@@ -1,12 +1,11 @@
 import React, {useState, useCallback} from 'react';
 import {func, node, number, string} from 'prop-types';
 import {StyleSheet, View} from 'react-native';
-import {Svg, Polygon} from 'react-native-svg';
-import Measurer from './Measurer';
+import {Svg} from 'react-native-svg';
+import MeasureAndRender from './MeasureAndRender';
 
 import Stars from './Stars';
-
-const starSvg = <Polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10" />;
+import defaultIcon from './defaultIcon';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +26,6 @@ const getSvgWidth = ({
 const StarRating = (props) => {
   const {defaultRating, size, onRate, padding, svg} = props;
   const [rating, setRating] = useState(defaultRating);
-  const [dimensions, setDimenions] = useState({});
 
   const handleRate = useCallback(
     (nextRating) => {
@@ -43,20 +41,16 @@ const StarRating = (props) => {
         width={getSvgWidth(props)}
         height={size + (2 * padding)}
       >
-        {dimensions.height ? (
+        <MeasureAndRender
+          svg={svg}
+        >
           <Stars
             {...props}
             rating={rating}
             onRate={handleRate}
-            dimensions={dimensions}
+            dimensions={{width: 20, height: 20, x: 2, y: 2}}
           />
-        ) : (
-          <Measurer
-            svg={svg}
-            onMeasure={setDimenions}
-            dimensions={dimensions}
-          />
-        )}
+        </MeasureAndRender>
       </Svg>
     </View>
   );
@@ -67,7 +61,6 @@ StarRating.propTypes = {
   defaultRating: number,
   gap: number,
   maxRating: number,
-  offset: number,
   onRate: func.isRequired,
   selectedColor: string, // TODO
   size: number,
@@ -81,10 +74,9 @@ StarRating.defaultProps = {
   defaultRating: 3,
   gap: 0,
   maxRating: 5,
-  offset: 12,
   selectedColor: '#ff0',
   size: 48,
-  svg: starSvg,
+  svg: defaultIcon,
   iconScale: 1,
   padding: 24,
 };

@@ -50,6 +50,7 @@ const Star = ({
         >
           {React.cloneElement(svg, {
             fill: (id > rating ? baseColor : selectedColor),
+            accessibilityRole: 'icon',
           })}
         </G>
       </Animatable>
@@ -61,6 +62,7 @@ const Star = ({
         height={size}
         fill="none"
         onPress={handleRate}
+        accessibilityRole="button"
       />
     </G>
   );
@@ -68,14 +70,14 @@ const Star = ({
 
 Star.propTypes = {
   baseColor: string.isRequired,
+  dimensions: object.isRequired,
+  iconScale: number.isRequired,
   id: number.isRequired,
   onRate: func.isRequired,
   rating: number.isRequired,
   selectedColor: string.isRequired,
   size: number.isRequired,
   svg: node.isRequired,
-  iconScale: number.isRequired,
-  dimensions: object.isRequired,
 };
 
 const shouldStarUpdate = (prevProps, nextProps) => {
