@@ -1,6 +1,8 @@
 import React, {useRef, useEffect} from 'react';
 import {func, node, number, shape} from 'prop-types';
 
+import {dimensionsPropType} from './propTypes';
+
 const Measurer = ({
   dimensions,
   onMeasure,
@@ -19,12 +21,7 @@ const Measurer = ({
 };
 
 Measurer.propTypes = {
-  dimensions: shape({
-    width: number,
-    height: number,
-    x: number,
-    y: number,
-  }).isRequired,
+  dimensions: dimensionsPropType.isRequired,
   onMeasure: func.isRequired,
   svg: node.isRequired,
 };

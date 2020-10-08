@@ -1,5 +1,5 @@
 {
-  "main": "src/index.js",
+  "main": "src/StarRating.js",
   "scripts": {
     "test": "jest --verbose"
   },
@@ -9,10 +9,13 @@
   },
   "name": "react-native-session-stats",
   "version": "1.0.0",
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react-native-svg": ">=7"
+  },
   "peerDependencies": {
     "react": "^16.8.0",
-    "react-native": "^0.57",
-    "react-native-svg": ">=7"
+    "react-native": "^0.57"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
@@ -28,7 +31,6 @@
     "eslint-plugin-react-hooks": "^4.1.2",
     "jest": "^26.4.2",
     "metro-react-native-babel-preset": "^0.63.0",
-    "prop-types": "^15.7.2",
     "react-native-svg-mock": "^2.0.0",
     "react-test-renderer": "^16.13.1"
   },

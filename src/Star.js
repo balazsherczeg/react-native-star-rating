@@ -2,6 +2,7 @@ import React, {memo, useCallback, useState, useEffect} from 'react';
 import {func, object, node, number, string} from 'prop-types';
 import {G, Rect} from 'react-native-svg';
 
+import {dimensionsPropType} from './propTypes';
 import Animatable from './Animatable';
 
 const Star = ({
@@ -70,7 +71,7 @@ const Star = ({
 
 Star.propTypes = {
   baseColor: string.isRequired,
-  dimensions: object.isRequired,
+  dimensions: dimensionsPropType.isRequired,
   iconScale: number.isRequired,
   id: number.isRequired,
   onRate: func.isRequired,
