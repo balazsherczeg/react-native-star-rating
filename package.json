@@ -10,12 +10,12 @@
   "name": "react-native-session-stats",
   "version": "1.0.0",
   "dependencies": {
-    "prop-types": "^15.7.2",
-    "react-native-svg": ">=7"
+    "prop-types": "^15.7.2"
   },
   "peerDependencies": {
     "react": "^16.8.0",
-    "react-native": "^0.57"
+    "react-native": "^0.57",
+    "react-native-svg": ">=7"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",

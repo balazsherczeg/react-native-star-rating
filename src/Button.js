@@ -2,8 +2,6 @@ import React, {useCallback} from 'react';
 import {bool, func, number} from 'prop-types';
 import {Rect} from 'react-native-svg';
 
-import {dimensionsPropType} from './propTypes';
-
 const Button = ({
   id,
   onRate,
@@ -11,31 +9,32 @@ const Button = ({
   size,
   startAnimation,
 }) => {
-  const handleRate = useCallback(
-    () => {
-      onRate(id);
-      startAnimation();
-    },
-    [id],
-  );
+  if (!readOnly) {
+    const handleRate = useCallback(
+      () => {
+        onRate(id);
+        startAnimation();
+      },
+      [id],
+    );
 
-  return (
-    <Rect
-      x="0"
-      y="0"
-      width={size}
-      height={size}
-      fill="none"
-      {...(!readOnly ? {
-        onPress: handleRate,
-        accessibilityRole: 'button',
-      } : {})}
-    />
-  );
+    return (
+      <Rect
+        x="0"
+        y="0"
+        width={size}
+        height={size}
+        fill="none"
+        onPress={handleRate}
+        accessibilityRole="button"
+      />
+    );
+  }
+
+  return null;
 };
 
 Button.propTypes = {
-  dimensions: dimensionsPropType.isRequired,
   id: number.isRequired,
   onRate: func.isRequired,
   size: number.isRequired,
