@@ -1,4 +1,4 @@
-import React, {memo, useState, useEffect} from 'react';
+import React, {memo, useState, useEffect, useCallback} from 'react';
 import {bool, func, node, number, string} from 'prop-types';
 import {G} from 'react-native-svg';
 
@@ -32,6 +32,14 @@ const Star = ({
 
   const {width, height, x, y} = dimensions;
 
+  const handleRate = useCallback(
+    () => {
+      onRate(id);
+      startAnimation();
+    },
+    [id],
+  );
+
   return (
     <G>
       <Animatable
@@ -52,7 +60,7 @@ const Star = ({
 
       <Button
         id={id}
-        onRate={onRate}
+        onRate={handleRate}
         readOnly={readOnly}
         size={size}
         startAnimation={startAnimation}

@@ -19,7 +19,8 @@ const props = {
   rating: 1,
   selectedColor,
   size: 24,
-  svg: defaultIcon,
+  shape: defaultIcon,
+  readOnly: false,
 };
 
 describe('Star', () => {

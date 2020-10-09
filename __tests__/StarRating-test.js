@@ -2,21 +2,25 @@ import React from 'react';
 import {render, fireEvent} from '@testing-library/react-native';
 
 import StarRating from '../src/StarRating';
+import defaultIcon from '../src/defaultIcon';
 
 jest.mock('../src/Measurer');
 jest.mock('../src/Animatable');
 
 const onPressMock = jest.fn();
 
-const maxRate = 5;
 const selectedColor = 'orange';
 const baseColor = 'gray';
+const maxRating = 5;
 
 const props = {
-  maxRate,
   selectedColor,
   baseColor,
   onRate: onPressMock,
+  shape: defaultIcon,
+  readOnly: false,
+  defaultRating: 3,
+  maxRating,
 };
 
 describe('StarRating', () => {
@@ -29,7 +33,7 @@ describe('StarRating', () => {
       const {getAllByRole} = render(component);
       const icons = await getAllByRole('icon');
 
-      expect(icons.length).toBe(maxRate);
+      expect(icons.length).toBe(maxRating);
     });
   });
 

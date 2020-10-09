@@ -3,18 +3,18 @@ import {func, node} from 'prop-types';
 
 const MockMeasurer = ({
   onMeasure,
-  svg,
+  shape,
 }) => {
   useEffect(() => {
     onMeasure({width: 20, height: 20, x: 2, y: 2});
   });
 
-  return svg;
+  return shape;
 };
 
 MockMeasurer.propTypes = {
   onMeasure: func.isRequired,
-  svg: node.isRequired,
+  shape: node.isRequired,
 };
 
 export default MockMeasurer;
